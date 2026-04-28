@@ -347,7 +347,54 @@ function validateForm() {
      } else{
         showAlert();
      }
- }
+}
+//when the cookie expires
+function setCookie(name, cvalue, expiryDays) {
+    var day = new Date();
+    day.setTime(day.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + day.toUTCString();
+    document.cookie = name + "=" + cvalue + ";" + expires + ";path=/";
+}
+//retrieves value of cookie
+function getCookie(name) {
+    var cookieName = name + "=";
+    var cookies = document.cookie.split(';');
 
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.indexOf(cookieName) == 0) {
+            return cookie.substring(cookieName.length, cookie.length);
+        }
+    }
+    return "";
+}
 
+var inputs = [
+  {id: "firstname", cookieName: "firstName"},
+  {id: "middleinit", cookieName: "middleInitial"},
+  {id: "lastname", cookieName: "lastName"},
+  {id: "dob", cookieName: "dob"},
+  {id: "ssn", cookieName: "ssn"},
+  {id: "address1", cookieName: "address1"},
+  {id: "city", cookieName: "city"},
+  {id: "zip", cookieName: "zipCode"},
+  {id: "email", cookieName: "email"},
+  {id: "phone", cookieName: "phone"},
+  {id: "UID", cookieName: "userName"},
+];
+
+inputs.forEach(function (input) {
+    var inputElement = document.getElementById(input.id);
+
+    // Prefill input fields
+    var cookieValue = getCookie(input.cookieName);
+    if (cookieValue !== "") {
+        inputElement.value = cookieValue;
+    }
+
+    // Set a cookie when the input field changes
+    inputElement.addEventListener("input", function () {
+        setCookie(input.cookieName, inputElement.value, 30);
+    });
+});
 
