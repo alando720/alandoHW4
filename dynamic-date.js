@@ -428,8 +428,22 @@ document.getElementById("remember-me").addEventListener("change", function () {
         console.log("Cookies saved because 'Remember Me' is checked.");
     }
 });
+// removes cookies by setting their expiration date in the past
+function deleteAllCookies() {
+    document.cookie.split(";").forEach(function (cookie) {
+        let eqPos = cookie.indexOf("=");
+        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1900 00:00:00 UTC;path=/;";
+    });
+}
+// makes sure cookies are deleted
+document.addEventListener("DOMContentLoaded", function () {
+    const rememberMe = document.getElementById("remember-me").checked;
 
-
+    if (!rememberMe) {
+        deleteAllCookies();
+    }
+});
 
 
 
