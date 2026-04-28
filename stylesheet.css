@@ -8,8 +8,17 @@ Description: Homework JavaScript
 */
 
 header {
+  position: sticky; 
+  top: 0;
   width: 100%;
   background-color: cadetblue;
+  transition: background-color 0.4 ease-in-out;
+  z-index: 1000;
+}
+
+header.scrolled {
+  background-color: cadetblue;
+  opacity: 1.0;
 }
 
 body {
@@ -171,7 +180,34 @@ td.output {
     font-family: "Monaco", monospace;
 }
 
+.iframe-container {
+    position: absolute; 
+    top: 25%
+    right: 15px;
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
 
+.iframe-container iframe {
+    width: 95%;
+    height: 20%;
+    border: 1px solid black;
+}
 
+#welcome1 {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Monaco", monospace;
+    font-weight: normal;
+}
 
-
+#welcome2 {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Monaco", monospace;
+    font-weight: normal;
+}
